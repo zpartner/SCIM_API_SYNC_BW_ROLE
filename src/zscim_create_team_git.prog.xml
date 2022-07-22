@@ -14,8 +14,14 @@
    <TPOOL>
     <item>
      <ID>R</ID>
-     <ENTRY>SCIM_TEST</ENTRY>
-     <LENGTH>9</LENGTH>
+     <ENTRY>SCIM Sync BW Role to SAC Team</ENTRY>
+     <LENGTH>29</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_PROF</KEY>
+     <ENTRY>OAuth Profile</ENTRY>
+     <LENGTH>21</LENGTH>
     </item>
     <item>
      <ID>S</ID>
@@ -28,6 +34,24 @@
      <KEY>P_TEAM</KEY>
      <ENTRY>Name of SAC Team</ENTRY>
      <LENGTH>24</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_TEAMD</KEY>
+     <ENTRY>Team Description</ENTRY>
+     <LENGTH>24</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>R1</KEY>
+     <ENTRY>Email Address</ENTRY>
+     <LENGTH>38</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>R2</KEY>
+     <ENTRY>User ID</ENTRY>
+     <LENGTH>32</LENGTH>
     </item>
    </TPOOL>
   </asx:values>
