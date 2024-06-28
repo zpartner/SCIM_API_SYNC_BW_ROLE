@@ -10,6 +10,7 @@ DATA: profile        TYPE oa2c_profile,
       http_method    TYPE string,
       http_client    TYPE REF TO if_http_client,
       oa2c_client    TYPE REF TO if_oauth2_client,
+      lo_oa2c_client TYPE REF TO cl_oa2c_client,
       status_code    TYPE i,
       response_data  TYPE string,
       fields         TYPE tihttpnvp,
@@ -718,6 +719,31 @@ START-OF-SELECTION.
 
   " Initialization
   DATA(scim_cl) = NEW zcl_scim_util( im_prof = p_prof im_team = p_team im_teamd = p_teamd  ).
+
+  DATA:
+        lv_client_uuid type oa2c_client-client_uuid,
+        lo_oa2c_config_reader         TYPE REF TO if_oa2c_config_reader,
+        l_authorization_code_allowed  TYPE abap_bool,
+        l_saml20_assertion_allowed    TYPE abap_bool.
+
+  lv_client_uuid = '000C29C8E92A1EEC92D741C891898044'.
+
+  lo_oa2c_client = cl_oa2c_client=>create( EXPORTING i_client_uuid = lv_client_uuid i_no_authority_check = abap_true ).
+
+
+***Check which grant types are allowed and execute respectively.
+        CREATE OBJECT lo_oa2c_config_reader TYPE cl_oa2c_config_reader
+          EXPORTING
+            i_client_uuid = lv_client_uuid.
+
+        CALL METHOD lo_oa2c_config_reader->get_allowed_grant_types
+          IMPORTING
+            e_authorization_code = l_authorization_code_allowed
+            e_saml20_assertion   = l_saml20_assertion_allowed.
+
+*         SAML 2.0 Assertion grant type is allowed.
+          lo_oa2c_client->if_oauth2_client~execute_saml20_flow( ).
+
 
   " Get BW User for selected Role
   scim_cl->get_users_from_role(
